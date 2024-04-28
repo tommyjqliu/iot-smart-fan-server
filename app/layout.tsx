@@ -46,6 +46,11 @@ export default function RootLayout({
                     <VercelLogo className="h-4 w-4" />
                     Deploy
                   </NavItem>
+                  <NavItem href="/control">
+                    <VercelLogo className="h-4 w-4" />
+                    Control
+                  </NavItem>
+
                 </nav>
               </div>
             </div>
