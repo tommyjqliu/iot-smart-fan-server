@@ -56,7 +56,7 @@ export default function ControlPage() {
                     min="0"
                     max="100"
                     value={fanSpeed}
-                    onChange={(e) => setFanSpeed(e.target.value)}
+                    onChange={(e) => setFanSpeed(+e.target.value)}
                 />
             </div>
         </main>
