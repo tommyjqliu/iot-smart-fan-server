@@ -4,7 +4,10 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "py:update-dependencies": "pip freeze > client/requirements.txt",
+    "py:install-dependencies": "pip install -r client/requirements.txt",
+    "py:build": "pyinstaller --onefile --noconfirm --clean --distpath public/dist client/client.py"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
