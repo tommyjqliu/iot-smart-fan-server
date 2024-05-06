@@ -5,6 +5,16 @@ import { Analytics } from '@vercel/analytics/react';
 import { Logo, SettingsIcon, UsersIcon, VercelLogo } from '@/components/icons';
 import { User } from './user';
 import { NavItem } from './nav-item';
+import { AirVent, Joystick } from 'lucide-react';
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger
+} from '@/components/ui/menubar';
 
 export const metadata = {
   title: 'Next.js App Router + NextAuth + Tailwind CSS',
@@ -28,13 +38,17 @@ export default function RootLayout({
                   className="flex items-center gap-2 font-semibold"
                   href="/"
                 >
-                  <Logo />
-                  <span className="">ACME</span>
+                  <AirVent />
+                  <span className=""> Smart Fan</span>
                 </Link>
               </div>
               <div className="flex-1 overflow-auto py-2">
                 <nav className="grid items-start px-4 text-sm font-medium">
                   <NavItem href="/">
+                    <Joystick className="h-4 w-4" />
+                    Control
+                  </NavItem>
+                  <NavItem href="/users">
                     <UsersIcon className="h-4 w-4" />
                     Users
                   </NavItem>
@@ -46,11 +60,6 @@ export default function RootLayout({
                     <VercelLogo className="h-4 w-4" />
                     Deploy
                   </NavItem>
-                  <NavItem href="/control">
-                    <VercelLogo className="h-4 w-4" />
-                    Control
-                  </NavItem>
-
                 </nav>
               </div>
             </div>
@@ -61,9 +70,58 @@ export default function RootLayout({
                 className="flex items-center gap-2 font-semibold lg:hidden"
                 href="/"
               >
-                <Logo />
-                <span className="">ACME</span>
+                {/* <AirVent />
+                <span className="">Smart Fan</span> */}
+                <Menubar>
+                  <MenubarMenu>
+                    <MenubarTrigger>
+                      <AirVent />
+                      <span className=""> Smart Fan</span>
+                    </MenubarTrigger>
+                    <MenubarContent>
+                      <MenubarItem>
+                        <Link
+                          className="flex items-center gap-2 font-semibold lg:hidden"
+                          href="/"
+                        >
+                          {' '}
+                          <Joystick className="h-4 w-4" />
+                          Control
+                        </Link>
+                      </MenubarItem>
+                      <MenubarItem>
+                        <Link
+                          className="flex items-center gap-2 font-semibold lg:hidden"
+                          href="/users"
+                        >
+                          <UsersIcon className="h-4 w-4" />
+                          Users
+                        </Link>
+                      </MenubarItem>
+                      <MenubarItem>
+                        <Link
+                          className="flex items-center gap-2 font-semibold lg:hidden"
+                          href="/settings"
+                        >
+                          <SettingsIcon className="h-4 w-4" />
+                          Settings
+                        </Link>
+                      </MenubarItem>
+                      <MenubarSeparator />
+                      <MenubarItem>
+                        <Link
+                          className="flex items-center gap-2 font-semibold lg:hidden"
+                          href="https://vercel.com/templates/next.js/admin-dashboard-tailwind-postgres-react-nextjs"
+                        >
+                          <VercelLogo className="h-4 w-4" />
+                          Deploy
+                        </Link>
+                      </MenubarItem>
+                    </MenubarContent>
+                  </MenubarMenu>
+                </Menubar>
               </Link>
+
               <User />
             </header>
             {children}
