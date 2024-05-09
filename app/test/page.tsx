@@ -3,9 +3,9 @@ import { pusher } from "@/lib/pusher";
 export default async function SettingsPage() {
 
   // Server Action
-  async function create() {
+  async function create(formData: FormData) {
     'use server'
-    pusher.trigger('my-channel', 'my-event', { test: 1 });
+    pusher.trigger('my-channel', 'my-event', { speed: formData.get('Speed') });
   }
 
 
@@ -16,6 +16,7 @@ export default async function SettingsPage() {
       </div>
       <div>
         <form action={create}>
+          <input type="text" name="Speed" />
           <button type="submit">test</button>
         </form>
       </div>
