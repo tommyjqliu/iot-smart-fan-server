@@ -1,12 +1,24 @@
 "use client"
+import { pusher } from "@/lib/pusher";
+import { useDebounceEffect } from "ahooks";
 import { useState } from "react";
-import { FaMicrophone, FaUserAlt } from 'react-icons/fa'; // 引入必要的图标
+import { FaMicrophone, FaUserAlt } from 'react-icons/fa';
+import { useEffect } from "react";  // 引入必要的图标
 
 export default function ControlPage() {
     const [fanStatus, setFanStatus] = useState(false);
     const [temperature, setTemperature] = useState(22);
-    const [fanSpeed, setFanSpeed] = useState(50);
+    const [fanSpeed, setFanSpeed] = useState(0);
 
+    useDebounceEffect(()=>{ 
+        //console.log(fanSpeed)
+    }, [fanSpeed], { wait: 500 });
+
+    useEffect(() => {
+        // pusher.trigger('my-channel', 'my-event', { speed: fanSpeed });
+        setFanSpeed(fanStatus ? 50 : 0);
+    }, [fanStatus]);
+  
     // 模拟的处理函数
     const handleVoiceControl = () => console.log("Voice control activated!");
     const handleFaceRecognition = () => console.log("Face recognition activated!");
@@ -54,8 +66,13 @@ export default function ControlPage() {
                     min="0"
                     max="100"
                     value={fanSpeed}
-                    onChange={(e) => setFanSpeed(+e.target.value)}
-                />
+                    onChange={(e) => {
+                        if (fanStatus) {  // 只有当风扇开启时，用户才可以调节风速
+                            setFanSpeed(parseInt(e.target.value));
+                        }
+                    }}
+                    disabled={!fanStatus} // 当风扇关闭时禁用滑动条
+                />  
 </div>
 <div className="flex flex-row justify-between items-center gap-4 w-full px-4">
     <button
