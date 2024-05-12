@@ -1,9 +1,9 @@
 "use client"
-import { pusher } from "@/lib/pusher";
 import { useDebounceEffect } from "ahooks";
 import { useState } from "react";
 import { FaMicrophone, FaUserAlt } from 'react-icons/fa';
 import { useEffect } from "react";  // 引入必要的图标
+import { message } from "@/lib/mqtt";
 
 export default function ControlPage() {
     const [fanStatus, setFanStatus] = useState(false);
@@ -11,7 +11,8 @@ export default function ControlPage() {
     const [fanSpeed, setFanSpeed] = useState(0);
 
     useDebounceEffect(()=>{ 
-        //console.log(fanSpeed)
+        console.log(fanSpeed)
+        message("CITS5506SMARTFAN/CONTROL", JSON.stringify({ speed: fanSpeed }));
     }, [fanSpeed], { wait: 500 });
 
     useEffect(() => {

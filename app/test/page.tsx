@@ -1,3 +1,4 @@
+import { message } from "@/lib/mqtt";
 import { pusher } from "@/lib/pusher";
 
 export default async function SettingsPage() {
@@ -5,7 +6,8 @@ export default async function SettingsPage() {
   // Server Action
   async function create(formData: FormData) {
     'use server'
-    pusher.trigger('my-channel', 'my-event', { speed: formData.get('Speed') });
+    // pusher.trigger('my-channel', 'my-event', { speed: formData.get('Speed') });
+    message("CITS5506SMARTFAN/CONTROL", JSON.stringify({ speed: formData.get('Speed') }));
   }
 
 
