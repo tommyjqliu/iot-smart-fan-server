@@ -4,7 +4,7 @@ export const POST = async (request: Request) => {
     const data = await request.json();
     await prisma.logs.create({
         data: {
-            data,
+            data: JSON.stringify(data),
             date: new Date(),
         },
     })
