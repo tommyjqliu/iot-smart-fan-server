@@ -1,16 +1,14 @@
 import { useState } from "react";
 import ModuleBox from "./module-box";
 
-export default function Temperature() {
-    const [temperature, setTemperature] = useState(22);
-
+export default function Temperature({ temperature }: { temperature: number }) {
     const temperatureColor =
         temperature > 30
             ? 'bg-red-600'
             : temperature < 10
                 ? 'bg-blue-500'
                 : 'bg-yellow-500';
-                
+
     return <ModuleBox>
         <div className='flex justify-between w-full'>
             <span className="text-gray-700 font-semibold">Temperature</span>

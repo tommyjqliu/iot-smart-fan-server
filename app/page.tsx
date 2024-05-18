@@ -1,30 +1,29 @@
-'use client';
-import { useState } from 'react';
-import { AirVent, Joystick } from 'lucide-react';
-import { Power } from 'lucide-react';
-import CircularSlider from '@fseehawer/react-circular-slider';
-import Image from 'next/image';
-import homeImage from './image.png';
-import FanControl from '@/components/fan-control';
-import Switch from '@/components/switch';
-import Temperature from '@/components/temperature';
-import FanOnline from '@/components/fan-online';
 
-export default function ControlPage() {
-  const [fanStatus, setFanStatus] = useState(false);
-  const [temperature, setTemperature] = useState(22);
-  const [fanSpeed, setFanSpeed] = useState(0);
+import ControlPanel from '@/components/control-panel';
+import { prisma } from '@/lib/prisma';
+import { FanState } from '@/lib/type';
 
 
+
+export default async function Page() {
+  const latestLog = await prisma.logs.findFirst({
+    orderBy: {
+      id: 'desc', // Order by the primary key column in descending order
+    },
+    take: 1, // Take only the first (last) record
+  });
+
+  let lastReport: FanState = {};
+  
+  try {
+    lastReport = JSON.parse(latestLog?.data ?? "{}");
+  } catch (error) {
+    console.error(error);
+  }
+  console.log( latestLog )
   return (
-    <main className="flex gap-4 p-12 items-center justify-center flex-wrap">
-      <FanControl />
-      <div className='flex flex-col gap-4'>
-        <FanOnline/>
-        <Switch title="Power" />
-        <Switch title="Auto Fan Off" />
-        <Temperature />
-      </div> 
+    <main >
+      <ControlPanel lastReport={lastReport}/>
     </main>
   );
 }

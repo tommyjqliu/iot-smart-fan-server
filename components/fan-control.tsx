@@ -1,12 +1,17 @@
 import CircularSlider from "@fseehawer/react-circular-slider";
-import { Power } from "lucide-react";
-import { useState } from "react";
-import Switch from "./switch";
+import {  useState } from "react";
 import ModuleBox from "./module-box";
+import { useDebounceEffect } from "ahooks";
+import { sendControl } from "@/lib/fan-control";
 
-export default function FanControl() {
-    const [active, setActive] = useState(false);
-    const [speed, setSpeed] = useState(0);
+export default function FanControl({ initialValue = 0 }: { initialValue?: number }) {
+ 
+    const [speed, setSpeed] = useState(initialValue);
+    useDebounceEffect(() => {
+        sendControl({
+            "fan_speed": speed,
+        })
+    }, [speed]);
 
     return <div className="relative rounded-2xl">
         <ModuleBox>
@@ -16,7 +21,7 @@ export default function FanControl() {
                     width={180}
                     min={0}
                     max={100}
-                    initialValue={speed}
+                    initialValue={100} // Component bug, initialValue is not working
                     onChange={(value: number) => {
                         setSpeed(value);
                     }}

@@ -2,11 +2,12 @@ import { Module } from 'module';
 import React, { useState } from 'react';
 import ModuleBox from './module-box';
 
-const Switch = ({ title }: { title: string }) => {
-    const [isOn, setIsOn] = useState(false);
+const Switch = ({ title, onChange, initialState = false }: { title: string, initialState?: Boolean, onChange?: (state: boolean) => void }) => {
+    const [isOn, setIsOn] = useState(initialState);
 
     const toggleSwitch = () => {
         setIsOn(!isOn);
+        onChange?.(!isOn);
     };
 
     return <ModuleBox clickable>
