@@ -14,7 +14,14 @@ model users {
   username String? @db.VarChar(255)
 }
 
-model Fan {
+model fans {
   id       Int     @id @default(autoincrement())
-  
+  online   Boolean
+  active   Boolean
+  speed    Int
+}
+model logs {
+  id       Int     @id @default(autoincrement())
+  data  String  @db.VarChar(4096)
+  date  DateTime
 }
