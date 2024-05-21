@@ -6,7 +6,7 @@ import { FanState } from '@/lib/type';
 
 
 export default async function Page() {
-  const latestLog = await prisma.logs.findFirst({
+  const latestLog = await prisma.reports.findFirst({
     orderBy: {
       id: 'desc', // Order by the primary key column in descending order
     },
@@ -16,7 +16,7 @@ export default async function Page() {
   let lastReport: FanState = {};
   
   try {
-    lastReport = JSON.parse(latestLog?.data ?? "{}");
+    lastReport = JSON.parse(latestLog?.status ?? "{}");
   } catch (error) {
     console.error(error);
   }

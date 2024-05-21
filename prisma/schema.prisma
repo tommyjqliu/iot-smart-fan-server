@@ -20,8 +20,8 @@ model fans {
   active   Boolean
   speed    Int
 }
-model logs {
+model reports {
   id       Int     @id @default(autoincrement())
-  data  String  @db.VarChar(4096)
+  status  String  @db.VarChar(4096)
   date  DateTime
 }
