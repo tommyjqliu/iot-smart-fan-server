@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full bg-gray-50">
       <body>
-        <div className="min-h-screen w-full relative bg-gradient-to-r from-cyan-500 to-blue-500 h-64">
+        <div className="h-screen w-full relative bg-gradient-to-r from-cyan-500 to-blue-500">
           <header className='absolute p-4 z-3'>
             <Link
               className="flex items-center gap-2 font-semibold text-white"
@@ -39,11 +39,10 @@ export default function RootLayout({
               <span className="">Smart Fan</span>
             </Link>
           </header>
-          <div className='flex flex-col justify-center min-h-screen'>
+          <div className='flex justify-center h-full overflow-auto'>
             {children}
           </div>
         </div>
-
       </body>
     </html>
   );

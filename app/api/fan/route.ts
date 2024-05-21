@@ -1,11 +1,12 @@
 import { prisma } from "@/lib/prisma";
+import { FanStatus } from "@/lib/type";
 
 export const POST = async (request: Request) => {
-    const data: { date: string, status: any } = await request.json();
+    const {date, ...rest}: FanStatus = await request.json();
     await prisma.reports.create({
         data: {
-            status: JSON.stringify(data.status),
-            date: new Date(data.date),
+            status: JSON.stringify(rest),
+            date: new Date(date),
         },
     })
 

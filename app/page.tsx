@@ -1,7 +1,7 @@
 
 import ControlPanel from '@/components/control-panel';
 import { prisma } from '@/lib/prisma';
-import { FanState } from '@/lib/type';
+import { FanStatus } from '@/lib/type';
 
 
 
@@ -13,17 +13,15 @@ export default async function Page() {
     take: 1, // Take only the first (last) record
   });
 
-  let lastReport: FanState = {};
-  
-  try {
-    lastReport = JSON.parse(latestLog?.status ?? "{}");
-  } catch (error) {
-    console.error(error);
+  let lastReport: FanStatus | undefined
+  if (latestLog) {
+    lastReport = JSON.parse(latestLog?.status ?? "{}") as FanStatus;
+    lastReport.date = latestLog?.date.toISOString();
   }
-  console.log( latestLog )
+
   return (
-    <main >
-      <ControlPanel lastReport={lastReport}/>
+    <main>
+      <ControlPanel lastReport={lastReport} />
     </main>
   );
 }
