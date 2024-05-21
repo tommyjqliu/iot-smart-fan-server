@@ -3,7 +3,7 @@ import { useDebounceEffect } from "ahooks";
 import { useState } from "react";
 import { FaMicrophone, FaUserAlt } from 'react-icons/fa';
 import { useEffect } from "react";  // 引入必要的图标
-import { message } from "@/lib/mqtt";
+import { sendControl } from "@/lib/fan-control";
 
 export default function ControlPage() {
     const [fanStatus, setFanStatus] = useState(false);
@@ -12,7 +12,7 @@ export default function ControlPage() {
 
     useDebounceEffect(()=>{ 
         console.log(fanSpeed)
-        message("CITS5506SMARTFAN/CONTROL", JSON.stringify({ speed: fanSpeed }));
+        sendControl({ fan_speed: fanSpeed });
     }, [fanSpeed], { wait: 500 });
 
     useEffect(() => {
