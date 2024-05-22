@@ -32,14 +32,14 @@ export default function ControlPanel({ lastReport }: { lastReport?: FanStatus })
         <div className="flex gap-4 p-12 h-full items-center justify-center flex-wrap">
             <div className='flex flex-col gap-4'>
                 <FanControl initialValue={status.fan_speed} onChange={(speed) => setStatus({ fan_speed: speed }, "fan")} />
-                <LineChart title='Fan Speed Diagram' x={statistics.map(s => new Date(s.date!))} y={statistics.map(s => s.fan_speed)} />
+                <LineChart title='Fan Speed History' x={statistics.map(s => new Date(s.date!))} y={statistics.map(s => s.fan_speed)} />
             </div>
             <div className='flex flex-col gap-4'>
                 <FanOnline isOnline={isOnline} />
                 <Switch title="Power" isOn={status.active} onChange={(active) => setStatus({ active, fan_speed: active ? 50 : 0 }, "power")} />
                 <Switch title="Auto Fan Off" isOn={status.auto_fan_off} onChange={(auto_fan_off) => setStatus({ auto_fan_off }, "auto")} />
                 <Temperature temperature={status.temperature || 0} />
-                <LineChart title='Temperature Diagram' x={statistics.map(s => new Date(s.date!))} y={statistics.map(s => s.temperature)} />
+                <LineChart title='Temperature History' x={statistics.map(s => new Date(s.date!))} y={statistics.map(s => s.temperature)} />
             </div>
 
         </div>

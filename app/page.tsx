@@ -2,12 +2,11 @@
 import ControlPanel from '@/components/control-panel';
 import { prisma } from '@/lib/prisma';
 import { FanStatus } from '@/lib/type';
-import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic'
 
 
 export default async function Page() {
-  const cookieStore = cookies() // disable static render
   const latestLog = await prisma.reports.findFirst({
     orderBy: {
       id: 'desc', // Order by the primary key column in descending order
