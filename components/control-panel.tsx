@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 
 function checkIfOnline(date: string): boolean {
-    return (new Date().getTime() - new Date(date).getTime()) < 15 * 1000;
+    return (new Date().getTime() - new Date(date).getTime()) < 30 * 1000;
 }
 
 export default function ControlPanel({ lastReport }: { lastReport?: FanStatus }) {
